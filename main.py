@@ -39,9 +39,7 @@ game_board = [[ '| | ', '| | ', '| | ', '| | ', '| | '],
 
 running = True
 turn = 1
-# solution = 'raged'
 solution = random.choice(open('words.txt').readlines())[:-1]
-print(f'|{solution}|')
 
 while running:
     print_board(game_board)
