@@ -1,5 +1,5 @@
 from rich import print
-import os
+import random
 
 def check_word(a, b):
     if len(a) != len(b):
@@ -11,12 +11,12 @@ def check_word(a, b):
 
     for i in range(len(b)):
         if a[i] == b[i]: 
-            output += f'[bold green]|{a[i]}|[/bold green] '
+            output += f'[bold green]|{a[i].upper()}|[/bold green] '
             winCount += 1
         elif a[i] in b:
-            output += f'[bold yellow]|{a[i]}|[/bold yellow] '
+            output += f'[bold yellow]|{a[i].upper()}|[/bold yellow] '
         else: 
-            output += f'[bold gray]|{a[i]}|[/bold gray] '
+            output += f'[bold gray]|{a[i].upper()}|[/bold gray] '
     
     if winCount >= 5:
          win = True
@@ -39,7 +39,9 @@ game_board = [[ '| | ', '| | ', '| | ', '| | ', '| | '],
 
 running = True
 turn = 1
-solution = 'raged'
+# solution = 'raged'
+solution = random.choice(open('words.txt').readlines())[:-1]
+print(f'|{solution}|')
 
 while running:
     print_board(game_board)
@@ -60,11 +62,11 @@ while running:
 
     if(check_word(guess.lower(), solution)[1]):
         print_board(game_board)
-        print(f'\nCongratulations! [bold green]{solution}[/bold green] was the word!')
+        print(f'\nCongratulations! [bold green]{solution.upper()}[/bold green] was the word!')
         break
 
     if turn > 6:
         turns = 6
         print_board(game_board)
-        print(f'\nThe game is over. The word was: [bold red]{solution}[/bold red]!')
+        print(f'\nThe game is over. The word was: [bold red]{solution.upper()}[/bold red]!')
         break
