@@ -7,3 +7,7 @@ A small terminal version of Wordle made for fun on a rainy morning.
     $ git clone https://github.com/TomRubicon/WordleClone.git
     $ pip install -r requirements.txt
     $ python main.py
+    
+## Libraries
+Rich - https://github.com/Textualize/rich
+
