@@ -81,6 +81,7 @@ while running:
     turn += 1
 
     if(check_word(guess, solution)[1]):
+        turns = 6
         print_board(game_board)
         print(f'\nCongratulations! [bold green]{solution.upper()}[/bold green] was the word!')
         break
@@ -88,5 +89,5 @@ while running:
     if turn > 6:
         turns = 6
         print_board(game_board)
-        print(f'\nThe game is over. The word was: [bold red]{solution.upper()}[/bold red]!')
+        print(f'\nThe game is over.\n The word was: [bold red]{solution.upper()}[/bold red]!')
         break
