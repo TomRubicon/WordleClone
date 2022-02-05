@@ -5,9 +5,10 @@ import random
 def check_word(a, b):
     if len(a) != len(b):
         return 'Words are not the same length!'
+        
     a = a.lower()
-    output = ''
-    winCount = 0
+    output = []
+    win_count = 0
     win = False
 
     letters = defaultdict(int)
@@ -16,23 +17,31 @@ def check_word(a, b):
     for i in b:
         letters[i] += 1
 
-    print(letters)
-
+    # Filter greens
     for i in range(len(b)):
         if a[i] == b[i]:
-            output += f'[bold green]|{a[i].upper()}|[/bold green] '
-            winCount += 1
+            output.append(f'[bold green]|{a[i].upper()}|[/bold green]')
             letters_used[a[i]] += 1
-        elif a[i] in b and letters_used[a[i]] < letters[a[i]]:
-            output += f'[bold yellow]|{a[i].upper()}|[/bold yellow] '
-            letters_used[a[i]] += 1
-        else: 
-            output += f'[bold gray]|{a[i].upper()}|[/bold gray] '
+            win_count += 1
+        else:
+            output.append(None)
     
-    if winCount >= 5:
+    # Filter yellows
+    for i in range(len(b)):
+        if a[i] in b and letters_used[a[i]] < letters[a[i]]:
+            if output[i] == None:
+                output[i] = f'[bold yellow]|{a[i].upper()}|[/bold yellow]'
+                letters_used[a[i]] += 1
+    
+    # Filter grays
+    for i in range(len(b)):
+        if output[i] == None:
+            output[i] = f'[bold gray]|{a[i].upper()}|[/bold gray]'
+
+    if win_count >= 5:
          win = True
 
-    return output, win
+    return ' '.join(output), win
 
 def print_board(gb):
     print('\n[underline bold]      WORDLE[/underline bold]')
@@ -42,24 +51,22 @@ def print_board(gb):
     for i in gb:
         print(''.join(i))
 
-game_board = [[ '| | ', '| | ', '| | ', '| | ', '| | '],
-              [ '| | ', '| | ', '| | ', '| | ', '| | '],
-              [ '| | ', '| | ', '| | ', '| | ', '| | '],
-              [ '| | ', '| | ', '| | ', '| | ', '| | '],
-              [ '| | ', '| | ', '| | ', '| | ', '| | '],
-              [ '| | ', '| | ', '| | ', '| | ', '| | ']]
+game_board = [[ '[black bold]| | ', '| | ', '| | ', '| | ', '| | [/black bold]'],
+              [ '[black bold]| | ', '| | ', '| | ', '| | ', '| | [/black bold]'],
+              [ '[black bold]| | ', '| | ', '| | ', '| | ', '| | [/black bold]'],
+              [ '[black bold]| | ', '| | ', '| | ', '| | ', '| | [/black bold]'],
+              [ '[black bold]| | ', '| | ', '| | ', '| | ', '| | [/black bold]'],
+              [ '[black bold]| | ', '| | ', '| | ', '| | ', '| | [/black bold]']]
 
 running = True
 turn = 1
-# solution = random.choice(open('words.txt').readlines())[:-1]
-solution = 'aaabb'
-print(f'\n Solution: {solution}')
+solution = random.choice(open('words.txt').readlines())[:-1]
 
 while running:
     print_board(game_board)
 
-    print('\nEnter your guess (q! to exit):')
-    print('12345')
+    print('\nEnter your guess [black bold](q! to exit)[/black bold]:')
+    print('[bold blue]12345[/bold blue]')
     guess = input()
     print('\n')
 
